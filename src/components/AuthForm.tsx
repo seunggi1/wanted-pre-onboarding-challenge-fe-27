@@ -2,6 +2,8 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { userAuth } from '../api/data';
 import { Auth, AuthResult } from '../types/auth';
 import { useLocation, useNavigate } from 'react-router';
+import Button from './ui/Button';
+import Input from './ui/Input';
 
 export default function AuthForm() {
 	const [auth, setAuth] = useState<Auth>({
@@ -40,20 +42,31 @@ export default function AuthForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<span>이메일</span>
-			<input name="email" value={auth.email} onChange={handleChange} />
-			<span>비밀번호</span>
-			<input
+		<form
+			className="w-96 p-4 flex flex-col items-center gap-4 border rounded-lg absolute top-[30%] left-1/2 -translate-x-1/2"
+			onSubmit={handleSubmit}
+		>
+			<label htmlFor="email">이메일</label>
+			<Input
+				name="email"
+				id="email"
+				value={auth.email}
+				onChange={handleChange}
+				autoFocus
+			/>
+			<label htmlFor="password">비밀번호</label>
+			<Input
 				name="password"
 				type="password"
+				id="password"
 				value={auth.password}
 				onChange={handleChange}
+				min={8}
 			/>
-			<button>
-				{location.pathname === '/auth/signup' ? '회원가입' : '로그인'}
-			</button>
-			{error && <span>{error}</span>}
+			<Button
+				name={location.pathname === '/auth/signup' ? '회원가입' : '로그인'}
+			/>
+			{error && <span className="text-red-500">{error}</span>}
 		</form>
 	);
 }

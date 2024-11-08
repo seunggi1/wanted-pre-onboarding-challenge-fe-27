@@ -1,15 +1,17 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Todo } from '../types/todo';
 import { createTodo } from '../api/data';
+import Button from './ui/Button';
+import Input from './ui/Input';
 
 type Props = {
 	onSubmit: (todo: Todo) => void;
 };
 
-const INIT_VALUE: Todo = { id: '', title: '', content: '' };
+const DEFAULT_VALUE: Todo = { id: '', title: '', content: '' };
 
 export default function TodoForm({ onSubmit }: Props) {
-	const [todo, setTodo] = useState<Todo>(INIT_VALUE);
+	const [todo, setTodo] = useState<Todo>(DEFAULT_VALUE);
 	const [error, setError] = useState<string>('');
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -18,7 +20,7 @@ export default function TodoForm({ onSubmit }: Props) {
 		createTodo(todo).then((result) => {
 			if (result.status === 'success') {
 				onSubmit(result.data);
-				setTodo(INIT_VALUE);
+				setTodo(DEFAULT_VALUE);
 			} else {
 				setError(result.reason);
 			}
@@ -30,12 +32,25 @@ export default function TodoForm({ onSubmit }: Props) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<span>할일</span>
-			<input name="title" value={todo.title} onChange={handleChange} />
-			<span>상세</span>
-			<input name="content" value={todo.content} onChange={handleChange} />
-			<button>저장</button>
+		<form
+			className="basis-1/2 flex flex-col items-center gap-4"
+			onSubmit={handleSubmit}
+		>
+			<label htmlFor="title">할일</label>
+			<Input
+				name="title"
+				id="title"
+				value={todo.title}
+				onChange={handleChange}
+			/>
+			<label htmlFor="content">내용</label>
+			<Input
+				name="content"
+				id="content"
+				value={todo.content}
+				onChange={handleChange}
+			/>
+			<Button name="저장" />
 			{error && <span>{error}</span>}
 		</form>
 	);

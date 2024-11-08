@@ -1,7 +1,9 @@
 import { ChangeEvent, useState } from 'react';
 import { deleteTodo, updateTodo } from '../api/data';
 import { Todo } from '../types/todo';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Button from './ui/Button';
+import Input from './ui/Input';
 
 type Props = {
 	initTodo: Todo;
@@ -12,6 +14,8 @@ type Props = {
 export default function TodoItem({ initTodo, onUpdate, onDelete }: Props) {
 	const [todo, setTodo] = useState<Todo>(initTodo);
 	const [error, setError] = useState<string>('');
+
+	const navigate = useNavigate();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setTodo((t) => ({ ...t, [e.target.name]: e.target.value }));
@@ -32,13 +36,21 @@ export default function TodoItem({ initTodo, onUpdate, onDelete }: Props) {
 	};
 
 	return (
-		<>
-			<input name="title" onChange={handleChange} value={todo.title} />
-			<input name="content" onChange={handleChange} value={todo.content} />
-			<Link to={`/todo/${todo.id}`}>상세보기</Link>
-			<button onClick={() => handleUpdate()}>업데이트</button>
-			<button onClick={() => handleDelete(todo.id)}>삭제</button>
+		<div className="flex justify-between p-4">
+			<div className="flex gap-2">
+				<Input name="title" onChange={handleChange} value={todo.title} />
+				<Input name="content" onChange={handleChange} value={todo.content} />
+			</div>
+			<div className="flex gap-2">
+				<Button
+					className="p-2 bg-neutral-900 text-white rounded-md"
+					onClick={() => navigate(`/todo/${todo.id}`)}
+					name="상세보기"
+				/>
+				<Button onClick={() => handleUpdate()} name="업데이트" />
+				<Button onClick={() => handleDelete(todo.id)} name="삭제" />
+			</div>
 			{error && <span>error</span>}
-		</>
+		</div>
 	);
 }

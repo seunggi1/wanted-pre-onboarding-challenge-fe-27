@@ -18,10 +18,14 @@ export default function TodoDetail() {
 	return (
 		<>
 			{todo && (
-				<ul>
-					<li>{todo.title}</li>
-					<li>{todo.content}</li>
-				</ul>
+				<>
+					<ul className="flex flex-col justify-between border rounded-lg p-4 text-md">
+						<li>{`제목 : ${todo.title}`}</li>
+						<li>{`내용 : ${todo.content}`}</li>
+						<li>{`생성일 : ${todo.createdAt}`}</li>
+						<li>{`마지막 수정일 : ${todo.updatedAt}`}</li>
+					</ul>
+				</>
 			)}
 		</>
 	);

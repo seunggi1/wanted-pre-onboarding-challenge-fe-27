@@ -11,14 +11,19 @@ class APIClient {
 		body?: T,
 		token?: string
 	): Promise<Response> {
-		return fetch(`${this.baseURL}${path}`, {
+		const request: RequestInit = {
 			method,
-			body: body ? JSON.stringify(body) : '',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: token || '',
 			},
-		});
+		};
+
+		if (body && method !== 'GET') {
+			request.body = JSON.stringify(body);
+		}
+
+		return fetch(`${this.baseURL}${path}`, request);
 	}
 
 	async signup(auth: Auth): Promise<Response> {
