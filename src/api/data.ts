@@ -85,6 +85,22 @@ export async function userAuth(
 	return { status: 'success', token: data.token };
 }
 
+export async function signup(auth: Auth) {
+	const result = await userAuth(auth, 'signup');
+
+	if (result.status === 'fail') {
+		throw new Error(result.reason);
+	}
+}
+
+export async function signin(auth: Auth) {
+	const result = await userAuth(auth, 'signin');
+
+	if (result.status === 'fail') {
+		throw new Error(result.reason);
+	}
+}
+
 export async function signout() {
 	setToken('');
 }

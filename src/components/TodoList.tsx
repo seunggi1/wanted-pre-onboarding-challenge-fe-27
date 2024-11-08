@@ -1,28 +1,13 @@
-import { useEffect, useState } from 'react';
-import { getTodos } from '../api/data';
 import TodoForm from './TodoForm';
 import { Todo } from '../types/todo';
 import TodoItem from './TodoItem';
+import useTodo from '../hooks/useTodo';
 
 export default function TodoList() {
-	const [todos, setTodos] = useState<Todo[]>([]);
+	const { todos, updateItem, deleteItem } = useTodo();
 
-	useEffect(() => {
-		getTodos().then(setTodos);
-	}, []);
-
-	const handleSubmit = (todo: Todo) => {
-		setTodos((prev) => [...prev, todo]);
-	};
-
-	const updateTodo = (updatedTodo: Todo) => {
-		setTodos((prev) =>
-			prev.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
-		);
-	};
-
-	const deleteTodo = (id: string) =>
-		setTodos((prev) => prev.filter((t) => t.id !== id));
+	const updateTodo = (updatedTodo: Todo) => updateItem.mutate(updatedTodo);
+	const deleteTodo = (id: string) => deleteItem.mutate(id);
 
 	return (
 		<>
@@ -46,7 +31,7 @@ export default function TodoList() {
 								</li>
 							))}
 						</ul>
-						<TodoForm onSubmit={handleSubmit} />
+						<TodoForm />
 					</div>
 				</div>
 			</section>

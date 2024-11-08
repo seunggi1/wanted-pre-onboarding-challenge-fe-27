@@ -1,30 +1,19 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Todo } from '../types/todo';
-import { createTodo } from '../api/data';
 import Button from './ui/Button';
 import Input from './ui/Input';
-
-type Props = {
-	onSubmit: (todo: Todo) => void;
-};
+import useTodo from '../hooks/useTodo';
 
 const DEFAULT_VALUE: Todo = { id: '', title: '', content: '' };
 
-export default function TodoForm({ onSubmit }: Props) {
+export default function TodoForm() {
 	const [todo, setTodo] = useState<Todo>(DEFAULT_VALUE);
-	const [error, setError] = useState<string>('');
+
+	const { createItem } = useTodo();
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
-		createTodo(todo).then((result) => {
-			if (result.status === 'success') {
-				onSubmit(result.data);
-				setTodo(DEFAULT_VALUE);
-			} else {
-				setError(result.reason);
-			}
-		});
+		createItem.mutate(todo);
 	};
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +40,7 @@ export default function TodoForm({ onSubmit }: Props) {
 				onChange={handleChange}
 			/>
 			<Button name="저장" />
-			{error && <span>{error}</span>}
+			{createItem.error && <span>{createItem.error.message}</span>}
 		</form>
 	);
 }

@@ -1,26 +1,26 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { userAuth } from '../api/data';
-import { Auth, AuthResult } from '../types/auth';
+import { Auth } from '../types/auth';
 import { useLocation, useNavigate } from 'react-router';
 import Button from './ui/Button';
 import Input from './ui/Input';
+import useAuth from '../hooks/useAuth';
 
 export default function AuthForm() {
 	const [auth, setAuth] = useState<Auth>({
 		email: '',
 		password: '',
 	});
-	const [error, setError] = useState<string>('');
+
+	const { token, signin, signup } = useAuth();
+
 	const location = useLocation();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-
 		if (token) {
 			navigate('/');
 		}
-	}, [navigate]);
+	}, [token, navigate]);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setAuth({ ...auth, [e.target.name]: e.target.value });
@@ -29,16 +29,11 @@ export default function AuthForm() {
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		userAuth(
-			auth,
-			location.pathname === '/auth/signup' ? 'signup' : 'signin'
-		).then((authResult: AuthResult) => {
-			if (authResult.status === 'success') {
-				navigate('/');
-			} else {
-				setError(authResult.reason);
-			}
-		});
+		if (location.pathname === '/auth/signup') {
+			signup.mutate(auth);
+		} else {
+			signin.mutate(auth);
+		}
 	};
 
 	return (
@@ -66,7 +61,12 @@ export default function AuthForm() {
 			<Button
 				name={location.pathname === '/auth/signup' ? '회원가입' : '로그인'}
 			/>
-			{error && <span className="text-red-500">{error}</span>}
+			{signin.error && (
+				<span className="text-red-500">{signin.error.message}</span>
+			)}
+			{signup.error && (
+				<span className="text-red-500">{signup.error.message}</span>
+			)}
 		</form>
 	);
 }
