@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { Auth } from '../types/auth';
 import { useLocation, useNavigate } from 'react-router';
-import Button from './ui/Button';
-import Input from './ui/Input';
-import useAuth from '../hooks/useAuth';
+import { Auth } from '../../../entities/auth';
+import useAuth from '../../../entities/auth/queries';
+import Input from '../../../shared/ui/Input';
+import Button from '../../../shared/ui/Button';
 
-export default function AuthForm() {
+export function SigninPage() {
 	const [auth, setAuth] = useState<Auth>({
 		email: '',
 		password: '',
@@ -16,6 +16,7 @@ export default function AuthForm() {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	//로더를 사용해서 가드하는게 좋음 useEffect를 사용하면 이렇게하면 렌더링하고 이동하는 거기때문에 좋지않음
 	useEffect(() => {
 		if (token) {
 			navigate('/');

@@ -1,9 +1,9 @@
+import { Todo } from '../../../entities/todo';
+import useTodo from '../../../entities/todo/queries';
 import TodoForm from './TodoForm';
-import { Todo } from '../types/todo';
 import TodoItem from './TodoItem';
-import useTodo from '../hooks/useTodo';
 
-export default function TodoList() {
+export function TodoListPage() {
 	const { todos, updateItem, deleteItem } = useTodo();
 
 	const updateTodo = (updatedTodo: Todo) => updateItem.mutate(updatedTodo);

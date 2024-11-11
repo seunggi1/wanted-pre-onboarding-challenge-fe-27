@@ -1,5 +1,5 @@
-import { Auth, AuthResult } from '../types/auth';
-import { Todo, TodoResult } from '../types/todo';
+import { Auth, AuthResult } from '../../entities/auth/types';
+import { Todo, TodoResult } from '../../entities/todo/types';
 import { getToken, setToken } from '../util/token';
 
 class APIClient {

@@ -5,7 +5,7 @@ import {
 	getTodoById,
 	getTodos,
 	updateTodo,
-} from '../api/data';
+} from '../../shared/api/data';
 import { useCallback } from 'react';
 
 const QUERY_KEY = ['todos'];

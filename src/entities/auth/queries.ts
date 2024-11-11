@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getToken } from '../util/token';
+import { getToken } from '../../shared/util/token';
 import { useCallback } from 'react';
-import { signin, signup } from '../api/data';
+import { signin, signup } from '../../shared/api/data';
 
 const QUERY_KEY = ['auth'];
 
@@ -10,6 +10,7 @@ export default function useAuth() {
 	const { data, error, isPending } = useQuery({
 		queryKey: QUERY_KEY,
 		queryFn: getToken,
+		staleTime: 1000 * 60,
 	});
 
 	const onSuccess = useCallback(() => {

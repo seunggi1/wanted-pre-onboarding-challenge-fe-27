@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Todo } from '../types/todo';
-import { getTodoById } from '../api/data';
 import { useParams } from 'react-router';
+import { Todo } from '../../../entities/todo';
+import { getTodoById } from '../../../shared/api/data';
 
-export default function TodoDetail() {
+export function TodoPage() {
 	const [todo, setTodo] = useState<Todo | undefined>();
 	const { id } = useParams();
 

@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { Todo } from '../types/todo';
-import Button from './ui/Button';
-import Input from './ui/Input';
-import useTodo from '../hooks/useTodo';
+import { Todo } from '../../../entities/todo';
+import useTodo from '../../../entities/todo/queries';
+import Input from '../../../shared/ui/Input';
+import Button from '../../../shared/ui/Button';
 
 const DEFAULT_VALUE: Todo = { id: '', title: '', content: '' };
 
