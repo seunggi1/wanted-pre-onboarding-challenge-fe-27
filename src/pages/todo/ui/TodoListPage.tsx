@@ -1,7 +1,7 @@
 import { Todo } from '../../../entities/todo';
-import useTodo from '../../../entities/todo/queries';
-import TodoForm from './TodoForm';
-import TodoItem from './TodoItem';
+import useTodo from '../../../entities/todo/api/todo.query';
+import TodoForm from '../../../widgets/todo/ui/TodoForm';
+import TodoItem from '../../../widgets/todo/ui/TodoItem';
 
 export function TodoListPage() {
 	const { todos, updateItem, deleteItem } = useTodo();

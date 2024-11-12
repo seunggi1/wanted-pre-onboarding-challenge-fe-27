@@ -4,14 +4,14 @@ import {
 	RouterProvider as ReactRouterProvider,
 } from 'react-router-dom';
 import { TodoListPage, TodoPage } from '../../pages/todo';
-import { SigninPage, SignupPage } from '../../pages/auth';
+import { AuthPage } from '../../pages/auth';
 import Header from '../../shared/ui/Header';
 
 export function RouterProvider() {
 	return <ReactRouterProvider router={router} />;
 }
 
-function RouterRoot() {
+function Root() {
 	return (
 		<>
 			<Header />
@@ -22,7 +22,7 @@ function RouterRoot() {
 
 const router = createBrowserRouter([
 	{
-		element: <RouterRoot />,
+		element: <Root />,
 		children: [
 			{
 				path: '/',
@@ -42,11 +42,11 @@ const router = createBrowserRouter([
 				children: [
 					{
 						path: 'signup',
-						element: <SignupPage />,
+						element: <AuthPage />,
 					},
 					{
 						path: 'signin',
-						element: <SigninPage />,
+						element: <AuthPage />,
 					},
 				],
 			},

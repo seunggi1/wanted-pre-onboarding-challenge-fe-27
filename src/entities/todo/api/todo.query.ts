@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useCallback } from 'react';
 import {
 	createTodo,
 	deleteTodo,
 	getTodoById,
 	getTodos,
 	updateTodo,
-} from '../../shared/api/data';
-import { useCallback } from 'react';
+} from '../model/todo.biz';
 
 const QUERY_KEY = ['todos'];
 export default function useTodo() {

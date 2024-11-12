@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Todo } from '../../../entities/todo';
-import { deleteTodo, updateTodo } from '../../../shared/api/data';
 import Input from '../../../shared/ui/Input';
 import Button from '../../../shared/ui/Button';
+import { deleteTodo, updateTodo } from '../../../entities/todo/model/todo.biz';
 
 type Props = {
 	initTodo: Todo;

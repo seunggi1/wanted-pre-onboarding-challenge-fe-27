@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Auth } from '../../../entities/auth';
-import useAuth from '../../../entities/auth/queries';
+import useAuth from '../../../entities/auth/api/auth.query';
 import Input from '../../../shared/ui/Input';
 import Button from '../../../shared/ui/Button';
 
-export function SigninPage() {
+export function AuthPage() {
 	const [auth, setAuth] = useState<Auth>({
 		email: '',
 		password: '',

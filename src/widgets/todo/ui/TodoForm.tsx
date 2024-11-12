@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Todo } from '../../../entities/todo';
-import useTodo from '../../../entities/todo/queries';
+import useTodo from '../../../entities/todo/api/todo.query';
 import Input from '../../../shared/ui/Input';
 import Button from '../../../shared/ui/Button';
 

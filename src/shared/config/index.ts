@@ -1,0 +1,1 @@
+export { backEndBaseURL } from './backend';

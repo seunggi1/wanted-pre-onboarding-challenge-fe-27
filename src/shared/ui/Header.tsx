@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { signout } from '../api/data';
+import { setToken } from '../util/token';
 
 export default function Header() {
 	return (
@@ -15,7 +15,7 @@ export default function Header() {
 					<Link to={'/auth/signin'}>로그인</Link>
 				</li>
 				<li>
-					<button onClick={() => signout()}>로그아웃</button>
+					<button onClick={() => setToken('')}>로그아웃</button>
 				</li>
 			</ul>
 		</header>

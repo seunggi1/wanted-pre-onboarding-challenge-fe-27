@@ -1,2 +1,3 @@
-export * from './queries';
-export * from './types';
+export * from './api/auth.api';
+export * from './api/auth.query';
+export * from './api/auth.types';

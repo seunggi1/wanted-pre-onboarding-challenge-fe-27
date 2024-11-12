@@ -1,2 +1,1 @@
-export * from './ui/SigninPage';
-export * from './ui/SignupPage';
+export * from './ui/AuthPage';

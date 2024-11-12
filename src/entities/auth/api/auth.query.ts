@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getToken } from '../../shared/util/token';
+import { getToken } from '../../../shared/util/token';
 import { useCallback } from 'react';
-import { signin, signup } from '../../shared/api/data';
+import { signin, signup } from '../model/auth.biz';
 
 const QUERY_KEY = ['auth'];
 

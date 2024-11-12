@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Todo } from '../../../entities/todo';
-import { getTodoById } from '../../../shared/api/data';
 
 export function TodoPage() {
 	const [todo, setTodo] = useState<Todo | undefined>();
@@ -11,7 +10,7 @@ export function TodoPage() {
 
 	useEffect(() => {
 		if (id) {
-			getTodoById(id).then(setTodo);
+			// getTodoById(id).then(setTodo);
 		}
 	}, [id]);
 
