@@ -4,6 +4,7 @@ import { Todo } from '../../../entities/todo';
 import Input from '../../../shared/ui/Input';
 import Button from '../../../shared/ui/Button';
 import { deleteTodo, updateTodo } from '../../../entities/todo/model/todo.biz';
+import TodoPrioritySelect from './TodoPrioritySelect';
 
 type Props = {
 	initTodo: Todo;
@@ -17,7 +18,9 @@ export default function TodoItem({ initTodo, onUpdate, onDelete }: Props) {
 
 	const navigate = useNavigate();
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+	) => {
 		setTodo((t) => ({ ...t, [e.target.name]: e.target.value }));
 	};
 
@@ -40,6 +43,7 @@ export default function TodoItem({ initTodo, onUpdate, onDelete }: Props) {
 			<div className="flex gap-2">
 				<Input name="title" onChange={handleChange} value={todo.title} />
 				<Input name="content" onChange={handleChange} value={todo.content} />
+				<TodoPrioritySelect onChange={handleChange} value={todo.priority} />
 			</div>
 			<div className="flex gap-2">
 				<Button

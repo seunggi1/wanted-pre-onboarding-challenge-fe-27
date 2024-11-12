@@ -5,6 +5,7 @@ import {
 	deleteTodo,
 	getTodoById,
 	getTodos,
+	getTodosByFilter,
 	updateTodo,
 } from '../model/todo.biz';
 
@@ -12,6 +13,7 @@ const QUERY_KEY = ['todos'];
 export default function useTodo() {
 	const queryClient = useQueryClient();
 	const { data, error, isPending } = useQuery({
+		staleTime: 1000 * 60,
 		queryKey: QUERY_KEY,
 		queryFn: getTodos,
 	});
@@ -21,6 +23,15 @@ export default function useTodo() {
 			queryKey: QUERY_KEY,
 		});
 	}, [queryClient]);
+
+	const getAll = onSuccess;
+
+	const getByFilter = useMutation({
+		mutationFn: getTodosByFilter,
+		onSuccess: (data) => {
+			queryClient.setQueryData(QUERY_KEY, data);
+		},
+	});
 
 	const getById = useMutation({
 		mutationFn: getTodoById,
@@ -46,9 +57,11 @@ export default function useTodo() {
 		todos: data,
 		error,
 		isPending,
+		getByFilter,
 		getById,
 		createItem,
 		updateItem,
 		deleteItem,
+		getAll,
 	};
 }

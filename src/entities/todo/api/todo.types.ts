@@ -4,6 +4,17 @@ export type Todo = {
 	content: string;
 	createdAt?: string;
 	updatedAt?: string;
+	priority: 'urgent' | 'normal' | 'low';
+};
+
+export type TodoInput = Pick<Todo, 'title' | 'content' | 'priority'>;
+
+export type TodoFilter = {
+	sort?: keyof Pick<Todo, 'createdAt' | 'updatedAt' | 'priority'>;
+	order?: '' | 'asc' | 'desc';
+	priorityFilter?: Todo['priority'];
+	keyword?: string;
+	countOnly?: boolean;
 };
 
 export type TodoSuccessResult = {
